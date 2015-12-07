@@ -9,6 +9,7 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 var APP_ID = '24uFlaA9GrHN8mSP3Inp4K7JPYNhr1NoIVd0tgTE';
 var API_KEY = 'E06HyxN5m0cUB9nT6ADplkEJaomN4mTSaLg9mlQH';
+var APP_URL = 'https://api.parse.com/1/classes/newWave';
 
 _jquery2['default'].ajaxSetup({
   headers: {
@@ -62,8 +63,6 @@ var _backbone2 = _interopRequireDefault(_backbone);
 var _record = require('./record');
 
 var _record2 = _interopRequireDefault(_record);
-
-// import {APP_URL} from '../parse_data';
 
 exports['default'] = _backbone2['default'].Collection.extend({
 
@@ -200,10 +199,10 @@ exports['default'] = _backbone2['default'].Router.extend({
           return _this.goto('');
         },
         onAddClick: function () {
-          return _this.goto('addrecord');
+          return _this.goto('add');
         },
         onEditClick: function () {
-          return _this.goto('editrecord/' + id);
+          return _this.goto('edit/' + id);
         },
         onClick: function (id) {
           return _this.goto('record/' + id);
@@ -225,10 +224,10 @@ exports['default'] = _backbone2['default'].Router.extend({
           return _this2.goto('');
         },
         onAddClick: function () {
-          return _this2.goto('addrecord');
+          return _this2.goto('add');
         },
         onEditClick: function () {
-          return _this2.goto('editrecord/' + id);
+          return _this2.goto('edit/' + id);
         } }));
     } else {
       record = this.collection.add(id);
@@ -239,10 +238,10 @@ exports['default'] = _backbone2['default'].Router.extend({
             return _this2.goto('');
           },
           onAddClick: function () {
-            return _this2.goto('addrecord');
+            return _this2.goto('add');
           },
           onEditClick: function () {
-            return _this2.goto('editrecord/' + id);
+            return _this2.goto('edit/' + id);
           } }));
       });
     }
@@ -252,13 +251,13 @@ exports['default'] = _backbone2['default'].Router.extend({
     var _this3 = this;
 
     this.spinner();
-    this.render(_react2['default'].createElement(AddRecord, {
+    this.render(_react2['default'].createElement(_views.Add, {
       newWave: this.collection.toJSON(),
       onHomeClick: function () {
         return _this3.goto('');
       },
       onAddClick: function () {
-        return _this3.goto('addrecord');
+        return _this3.goto('add');
       },
       onSubmitClick: function () {
         var newVideo = document.querySelector('.video').value;
@@ -270,14 +269,13 @@ exports['default'] = _backbone2['default'].Router.extend({
         var newInfo = document.querySelector('.info').value;
 
         var songModel = new _resources.Record({
-          video: video,
-          image: image,
-          title: title,
-          artist: artist,
-          song: song,
-          year: year,
-          chart: chart,
-          info: info
+          video: newVideo,
+          image: newImage,
+          title: newTitle,
+          artist: newArtist,
+          year: newYear,
+          chart: newChart,
+          info: newInfo
         });
 
         songModel.save().then(function () {
@@ -292,7 +290,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     this.spinner();
     var getId = this.collection.get(id);
-    this.render(_react2['default'].createElement(EditRecord, {
+    this.render(_react2['default'].createElement(_views.Edit, {
       newWave: this.collection.toJSON(),
       stored: getId.toJSON(),
       onBackClick: function () {
@@ -302,7 +300,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         return _this4.goto('');
       },
       onAddClick: function () {
-        return _this4.goto('addrecord');
+        return _this4.goto('add');
       },
       onSubmitChangesClick: function (id, video, image, title, artist, year, chart, info) {
         _this4.saveChanges(id, video, image, title, artist, year, chart, info);
@@ -331,119 +329,148 @@ exports['default'] = _backbone2['default'].Router.extend({
 module.exports = exports['default'];
 
 },{"./resources":4,"./views":10,"backbone":13,"jquery":15,"react":173,"react-dom":17,"underscore":174}],7:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-exports["default"] = _react2["default"].createClass({
-  displayName: "add",
+exports['default'] = _react2['default'].createClass({
+  displayName: 'add',
 
   goHomeView: function goHomeView() {
+    console.log('Home clicked');
     this.props.onHomeClick();
   },
 
   addRecord: function addRecord() {
+    console.log('Add clicked');
     this.props.onSubmitClick();
   },
 
   render: function render() {
     var _this = this;
 
-    return _react2["default"].createElement(
-      "div",
+    return _react2['default'].createElement(
+      'div',
       null,
-      _react2["default"].createElement(
-        "div",
-        { className: "nav" },
-        _react2["default"].createElement("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5", id: "mtvLogo" }),
-        _react2["default"].createElement(
-          "p",
-          null,
-          "Classic Music Videos"
+      _react2['default'].createElement(
+        'div',
+        { className: 'nav' },
+        _react2['default'].createElement(
+          'div',
+          { id: 'logoTag' },
+          _react2['default'].createElement('img', { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5', id: 'mtvLogo' }),
+          _react2['default'].createElement(
+            'p',
+            null,
+            'Classic Music Videos'
+          )
         ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.goHomeView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-home" }),
-          "Home"
+        _react2['default'].createElement(
+          'div',
+          { id: 'navBtns' },
+          _react2['default'].createElement(
+            'button',
+            { onClick: function () {
+                return _this.goHomeView();
+              } },
+            _react2['default'].createElement('i', { className: 'fa fa-home' }),
+            'Home'
+          ),
+          _react2['default'].createElement(
+            'button',
+            { onClick: this.addRecordView },
+            _react2['default'].createElement('i', { className: 'fa fa-plus-circle' }),
+            'Add'
+          )
         )
       ),
-      _react2["default"].createElement(
-        "div",
-        { className: "addRecord" },
-        _react2["default"].createElement(
-          "h2",
+      _react2['default'].createElement(
+        'div',
+        { className: 'addRecord', id: 'addDiv' },
+        _react2['default'].createElement(
+          'h2',
           null,
-          _react2["default"].createElement("i", { className: "fa fa-music" }),
-          "Add Record"
+          _react2['default'].createElement('i', { className: 'fa fa-music' }),
+          ' Add Record'
         ),
-        _react2["default"].createElement(
-          "form",
+        _react2['default'].createElement(
+          'form',
           null,
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Video URL: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "video URL", className: "video" })
+          _react2['default'].createElement(
+            'ul',
+            { id: 'addForm' },
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Video URL: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'video URL', className: 'video' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Record Sleeve: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'record sleeve URL', className: 'image' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Song Title: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'song title', className: 'title' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Artist: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'artist name', className: 'artist' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Year Released: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'year released', className: 'year' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Highest UK Chart Position: ',
+              _react2['default'].createElement('input', { type: 'text', size: '50', placeholder: 'highest UK chart position', className: 'chart' })
+            ),
+            _react2['default'].createElement(
+              'li',
+              null,
+              'Information: ',
+              _react2['default'].createElement('textarea', { rows: '4', cols: '50', placeholder: 'information about the song', className: 'info' })
+            )
           ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Record Sleeve: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "record sleeve URL", className: "image" })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Song Title: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "song title", className: "title" })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Artist: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "artist name", className: "artist" })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Year Released: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "year released", className: "year" })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Highest UK Chart Position: ",
-            _react2["default"].createElement("input", { type: "text", placeholder: "highest UK chart position", className: "chart" })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Information: ",
-            _react2["default"].createElement("input", { type: "text area", placeholder: "information about the song", className: "info" })
-          ),
-          _react2["default"].createElement(
-            "button",
+          _react2['default'].createElement(
+            'button',
             { onClick: this.addRecord },
-            "Add"
+            'Add'
           )
+        )
+      ),
+      _react2['default'].createElement(
+        'div',
+        { id: 'footer' },
+        _react2['default'].createElement(
+          'h5',
+          null,
+          '© 2015 Viacom International Inc. All Rights Reserved. MTV and all related titles and logos are trademarks of Viacom International Inc. '
         )
       )
     );
   }
 
 });
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 },{"react":173}],8:[function(require,module,exports){
 "use strict";
@@ -572,6 +599,11 @@ exports["default"] = _react2["default"].createClass({
     };
   },
 
+  submitHandler: function submitHandler(event) {
+    event.preventDefault();
+    this.props.onSubmit(this.state.video, this.state.image, this.state.title, this.state.artist, this.state.year, this.state.chart, this.state.info);
+  },
+
   setId: function setId(event) {
     var newId = event.currentTarget.value;
 
@@ -581,7 +613,7 @@ exports["default"] = _react2["default"].createClass({
   update: function update(event) {
     var newVideo = event.currentTarget.value;
 
-    this.setState({ video: Video });
+    this.setState({ video: newVideo });
   },
 
   update: function update(event) {
@@ -591,7 +623,7 @@ exports["default"] = _react2["default"].createClass({
   },
 
   updateTitle: function updateTitle(event) {
-    var newtitle = event.currentTarget.value;
+    var newTitle = event.currentTarget.value;
 
     this.setState({ title: newTitle });
   },
@@ -646,38 +678,38 @@ exports["default"] = _react2["default"].createClass({
       _react2["default"].createElement(
         "div",
         { className: "nav" },
-        _react2["default"].createElement("img", { src: "http://2.bp.blogspot.com/-11siAcQNJw0/Tfx7Qo9j3LI/AAAAAAAABmM/8j9EqyaHjHU/s500/MTV+International+logo+2009.png", id: "mtvLogo" }),
         _react2["default"].createElement(
-          "p",
-          null,
-          "Classic Music Videos"
+          "div",
+          { id: "logoTag" },
+          _react2["default"].createElement("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5", id: "mtvLogo" }),
+          _react2["default"].createElement(
+            "p",
+            null,
+            "Classic Music Videos"
+          )
         ),
         _react2["default"].createElement(
-          "button",
-          { onClick: this.addRecordView },
-          _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
-          "Add"
-        ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.goBackView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-chevron-left" }),
-          "Back"
-        ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.goHomeView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-home" }),
-          "Home"
+          "div",
+          { id: "navBtns" },
+          _react2["default"].createElement(
+            "button",
+            { onClick: function () {
+                return _this.goHomeView();
+              } },
+            _react2["default"].createElement("i", { className: "fa fa-home" }),
+            "Home"
+          ),
+          _react2["default"].createElement(
+            "button",
+            { onClick: this.addRecordView },
+            _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
+            "Add"
+          )
         )
       ),
       _react2["default"].createElement(
         "div",
-        { className: "edit-record" },
+        { className: "edit-record", id: "editDiv" },
         _react2["default"].createElement(
           "h2",
           null,
@@ -685,60 +717,79 @@ exports["default"] = _react2["default"].createClass({
         ),
         _react2["default"].createElement(
           "form",
-          null,
+          { onSubmit: this.submitHandler },
           _react2["default"].createElement(
-            "label",
-            null,
-            "Id: ",
-            _react2["default"].createElement("input", { onChange: this.setId, type: "text", className: "id", value: this.state.objectId })
+            "ul",
+            { id: "editForm" },
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Id: ",
+              _react2["default"].createElement("input", { onChange: this.setId, type: "text", className: "id", value: this.state.objectId })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Video URL: ",
+              _react2["default"].createElement("input", { onChange: this.updateVideo, type: "text", className: "video", placeholder: "video URL", value: this.state.video })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Image URL: ",
+              _react2["default"].createElement("input", { onChange: this.updateImage, type: "text", className: "image", placeholder: "image URL", value: this.state.image })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Title: ",
+              _react2["default"].createElement("input", { onChange: this.updateTitle, type: "text", className: "title", placeholder: "song title", value: this.state.title })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Artist: ",
+              _react2["default"].createElement("input", { onChange: this.updateArtist, type: "text", className: "artist", placeholder: "artist name", value: this.state.artist })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Year: ",
+              _react2["default"].createElement("input", { onChange: this.updateYear, type: "text", className: "year", placeholder: "year released", value: this.state.year })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "Highest UK Chart Position: ",
+              _react2["default"].createElement("input", { onChange: this.updateChart, type: "text", className: "chart", placeholder: "highest UK chart position", value: this.state.chart })
+            ),
+            _react2["default"].createElement(
+              "li",
+              null,
+              "About This Song: ",
+              _react2["default"].createElement("input", { onChange: this.updateInfo, type: "text", className: "info", placeholder: "information about the song", value: this.state.info })
+            )
           ),
           _react2["default"].createElement(
-            "label",
-            null,
-            "Video URL: ",
-            _react2["default"].createElement("input", { onChange: this.updateVideo, type: "text", className: "video", placeholder: "video URL", value: this.state.video })
+            "button",
+            { onClick: this.submitHandler },
+            "Update"
           ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Image URL: ",
-            _react2["default"].createElement("input", { onChange: this.updateImage, type: "text", className: "image", placeholder: "image URL", value: this.state.image })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Title: ",
-            _react2["default"].createElement("input", { onChange: this.updateTitle, type: "text", className: "title", placeholder: "song title", value: this.state.title })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Artist: ",
-            _react2["default"].createElement("input", { onChange: this.updateArtist, type: "text", className: "artist", placeholder: "artist name", value: this.state.artist })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Year: ",
-            _react2["default"].createElement("input", { onChange: this.updateYear, type: "text", className: "year", placeholder: "year released", value: this.state.year })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "Highest UK Chart Position: ",
-            _react2["default"].createElement("input", { onChange: this.updateChart, type: "text", className: "chart", placeholder: "highest UK chart position", value: this.state.chart })
-          ),
-          _react2["default"].createElement(
-            "label",
-            null,
-            "About This Song: ",
-            _react2["default"].createElement("input", { onChange: this.updateInfo, type: "text", className: "info", placeholder: "information about the song", value: this.state.info })
-          ),
+          "// ",
           _react2["default"].createElement(
             "button",
             { onClick: this.addChanges },
             "Update"
           )
+        )
+      ),
+      _react2["default"].createElement(
+        "div",
+        { id: "footer" },
+        _react2["default"].createElement(
+          "h5",
+          null,
+          "© 2015 Viacom International Inc. All Rights Reserved. MTV and all related titles and logos are trademarks of Viacom International Inc. "
         )
       )
     );
@@ -819,56 +870,94 @@ exports["default"] = _react2["default"].createClass({
       _react2["default"].createElement(
         "div",
         { className: "nav" },
-        _react2["default"].createElement("img", { src: "http://2.bp.blogspot.com/-11siAcQNJw0/Tfx7Qo9j3LI/AAAAAAAABmM/8j9EqyaHjHU/s500/MTV+International+logo+2009.png", id: "mtvLogo" }),
         _react2["default"].createElement(
-          "p",
-          null,
-          "Classic Music Videos"
+          "div",
+          { id: "logoTag" },
+          _react2["default"].createElement("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5", id: "mtvLogo" }),
+          _react2["default"].createElement(
+            "p",
+            null,
+            "Classic Music Videos"
+          )
         ),
         _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.editRecordView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-pencil-square-o" }),
-          "Update"
-        ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.addRecordView;
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
-          "Add"
-        ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this.goHomeView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-home" }),
-          "Home"
+          "div",
+          { id: "navBtns" },
+          _react2["default"].createElement(
+            "button",
+            { onClick: function () {
+                return _this.goHomeView();
+              } },
+            _react2["default"].createElement("i", { className: "fa fa-home" }),
+            "Home"
+          ),
+          _react2["default"].createElement(
+            "button",
+            { onClick: this.addRecordView },
+            _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
+            "Add"
+          ),
+          _react2["default"].createElement(
+            "button",
+            { onClick: this.editRecordView },
+            _react2["default"].createElement("i", { className: "fa fa-plus-pencil" }),
+            "Edit"
+          )
         )
       ),
-      "//       ",
       _react2["default"].createElement(
         "div",
-        { className: "record-view", id: this.props.newWave.id },
-        "//         ",
+        { className: "record-view", id: this.props.newWave.id, id: "recordView" },
         _react2["default"].createElement(
-          "p",
-          null,
+          "ul",
+          { id: "singleView" },
           _react2["default"].createElement(
-            "span",
-            { className: "title" },
-            this.props.newWave.title
+            "li",
+            null,
+            _react2["default"].createElement("iframe", { width: "420", height: "315", src: this.props.newWave.video, frameBorder: "1", allowFullScreen: true })
           ),
-          " by ",
-          this.props.newWave.artist
-        ),
-        "//       "
+          _react2["default"].createElement(
+            "li",
+            null,
+            "Title: \"",
+            this.props.newWave.title,
+            "\""
+          ),
+          _react2["default"].createElement(
+            "li",
+            null,
+            "Artist: ",
+            this.props.newWave.artist
+          ),
+          _react2["default"].createElement(
+            "li",
+            null,
+            "Released: ",
+            this.props.newWave.year
+          ),
+          _react2["default"].createElement(
+            "li",
+            null,
+            "Highest UK Chart Placing: ",
+            this.props.newWave.chart
+          ),
+          _react2["default"].createElement(
+            "li",
+            null,
+            "Info: ",
+            this.props.newWave.info
+          )
+        )
       ),
-      "//     "
+      _react2["default"].createElement(
+        "div",
+        { id: "footer" },
+        _react2["default"].createElement(
+          "h5",
+          null,
+          "© 2015 Viacom International Inc. All Rights Reserved. MTV and all related titles and logos are trademarks of Viacom International Inc. "
+        )
+      )
     );
   }
 

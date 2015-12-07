@@ -15,6 +15,11 @@ export default React.createClass({
     });
   },
 
+  submitHandler(event) {
+    event.preventDefault();
+    this.props.onSubmit(this.state.video, this.state.image, this.state.title, this.state.artist, this.state.year, this.state.chart, this.state.info);
+  },
+
   setId(event) {
     let newId = event.currentTarget.value;
 
@@ -24,7 +29,7 @@ export default React.createClass({
   update(event) {
     let newVideo = event.currentTarget.value;
 
-    this.setState({video: Video});
+    this.setState({video: newVideo});
   },
 
   update(event) {
@@ -34,7 +39,7 @@ export default React.createClass({
   },
 
   updateTitle(event) {
-    let newtitle = event.currentTarget.value;
+    let newTitle = event.currentTarget.value;
 
     this.setState({title: newTitle});
   },
@@ -92,31 +97,41 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <div className="nav">
-          <img src="http://2.bp.blogspot.com/-11siAcQNJw0/Tfx7Qo9j3LI/AAAAAAAABmM/8j9EqyaHjHU/s500/MTV+International+logo+2009.png" id="mtvLogo"/>
-          <p>Classic Music Videos</p>
-          <button onClick={this.addRecordView}><i className="fa fa-plus-circle"></i>Add</button>
-          <button onClick={() => this.goBackView()}><i className="fa fa-chevron-left"></i>Back</button>
-          <button onClick={() => this.goHomeView()}><i className="fa fa-home"></i>Home</button>
-          
-        </div> 
+         <div className="nav">
+          <div id="logoTag">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5" id="mtvLogo"/>
+            <p>Classic Music Videos</p>
+          </div>
+          <div id="navBtns">
+            <button onClick={() => this.goHomeView()}><i className="fa fa-home"></i>Home</button>
+            <button onClick={this.addRecordView}><i className="fa fa-plus-circle"></i>Add</button>
+          </div>  
+        </div>  
 
-        <div className="edit-record">
+        <div className="edit-record" id="editDiv">
           <h2>Update Record</h2>
           
-          <form>
-            <label>Id: <input onChange={this.setId} type="text" className="id" value={this.state.objectId}/></label>
-            <label>Video URL: <input onChange={this.updateVideo} type="text" className="video" placeholder="video URL" value={this.state.video}/></label>
-            <label>Image URL: <input onChange={this.updateImage} type="text" className="image" placeholder="image URL" value={this.state.image}/></label>
-            <label>Title: <input onChange={this.updateTitle} type="text" className="title" placeholder="song title" value={this.state.title}/></label>
-            <label>Artist: <input onChange={this.updateArtist} type="text" className="artist" placeholder="artist name" value={this.state.artist}/></label>
-            <label>Year: <input onChange={this.updateYear} type="text" className="year" placeholder="year released" value={this.state.year}/></label>
-            <label>Highest UK Chart Position: <input onChange={this.updateChart} type="text" className="chart" placeholder="highest UK chart position" value={this.state.chart}/></label>
-            <label>About This Song: <input onChange={this.updateInfo} type="text" className="info" placeholder="information about the song" value={this.state.info}/></label>
-            <button onClick={this.addChanges}>Update</button>
+          <form onSubmit={this.submitHandler}>
+            <ul id="editForm">
+              <li>Id: <input onChange={this.setId} type="text" className="id" value={this.state.objectId}/></li>
+              <li>Video URL: <input onChange={this.updateVideo} type="text" className="video" placeholder="video URL" value={this.state.video}/></li>
+              <li>Image URL: <input onChange={this.updateImage} type="text" className="image" placeholder="image URL" value={this.state.image}/></li>
+              <li>Title: <input onChange={this.updateTitle} type="text" className="title" placeholder="song title" value={this.state.title}/></li>
+              <li>Artist: <input onChange={this.updateArtist} type="text" className="artist" placeholder="artist name" value={this.state.artist}/></li>
+              <li>Year: <input onChange={this.updateYear} type="text" className="year" placeholder="year released" value={this.state.year}/></li>
+              <li>Highest UK Chart Position: <input onChange={this.updateChart} type="text" className="chart" placeholder="highest UK chart position" value={this.state.chart}/></li>
+              <li>About This Song: <input onChange={this.updateInfo} type="text" className="info" placeholder="information about the song" value={this.state.info}/></li>
+            </ul>
+            <button onClick={this.submitHandler}>Update</button>
+            // <button onClick={this.addChanges}>Update</button>
           </form>
 
         </div>
+
+        <div id="footer">
+          <h5>&copy; 2015 Viacom International Inc. All Rights Reserved. MTV and all related titles and logos are trademarks of Viacom International Inc. </h5>
+        </div>
+
       </div>
     );
   }

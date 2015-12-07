@@ -7,13 +7,11 @@ import ReactDom from 'react-dom';
 import {Discog as DiscogCollection} from './resources';
 import {Record as RecordModel} from './resources';
 
-import {
-  Discog as DiscogView, 
-  Record as RecordView,
-  Add as AddView,
-  Edit as EditView, 
-  Spinner
-} from './views';
+import {Discog as DiscogView} from './views'; 
+import {Record as RecordView} from './views';
+import {Add} from './views';
+import {Edit} from './views'; 
+import {Spinner} from './views';
 
 export default Backbone.Router.extend({
 
@@ -57,8 +55,8 @@ export default Backbone.Router.extend({
       this.render(<DiscogView
         id={this.collection.objectId}
         onHomeClick={() => this.goto('')}
-        onAddClick={() => this.goto('addrecord')}
-        onEditClick={() => this.goto('editrecord/' + id)}
+        onAddClick={() => this.goto('add')}
+        onEditClick={() => this.goto('edit/' + id)}
         onClick={(id) => this.goto('record/' + id)}
         newWave={this.collection.toJSON()}/>);
     });
@@ -72,8 +70,8 @@ export default Backbone.Router.extend({
       this.render(<RecordView
         newWave={record.toJSON()}
         onHomeClick={() => this.goto('')}
-        onAddClick={() => this.goto('addrecord')}
-        onEditClick={() => this.goto('editrecord/' + id)}/>);
+        onAddClick={() => this.goto('add')}
+        onEditClick={() => this.goto('edit/' + id)}/>);
 
     } else {
       record = this.collection.add(id);
@@ -81,18 +79,18 @@ export default Backbone.Router.extend({
         this.render(<RecordView
           newWave={record.toJSON()}
           onHomeClick={() => this.goto('')}
-          onAddClick={() => this.goto('addrecord')}
-          onEditClick={() => this.goto('editrecord/' + id)}/>);
+          onAddClick={() => this.goto('add')}
+          onEditClick={() => this.goto('edit/' + id)}/>);
       });
     }
   },
 
   addRecord() {
     this.spinner();
-    this.render(<AddRecord
+    this.render(<Add
       newWave={this.collection.toJSON()}
       onHomeClick={() => this.goto('')}
-      onAddClick={() => this.goto('addrecord')}
+      onAddClick={() => this.goto('add')}
       onSubmitClick={() => {
         let newVideo = document.querySelector('.video').value;
         let newImage = document.querySelector('.image').value;
@@ -103,14 +101,13 @@ export default Backbone.Router.extend({
         let newInfo = document.querySelector('.info').value;
 
         let songModel = new RecordModel({
-          video: video,
-          image: image,
-          title: title,
-          artist: artist,
-          song: song,
-          year: year,
-          chart: chart,
-          info: info
+          video: newVideo,
+          image: newImage,
+          title: newTitle,
+          artist: newArtist,
+          year: newYear,
+          chart: newChart,
+          info: newInfo
         });
 
         songModel.save().then(() => {
@@ -123,12 +120,12 @@ export default Backbone.Router.extend({
   editRecord(id) {
     this.spinner();
     let getId = this.collection.get(id);
-    this.render(<EditRecord
+    this.render(<Edit
       newWave={this.collection.toJSON()}
       stored={getId.toJSON()}
       onBackClick={() => this.goto('record/' + id)}
       onHomeClick={() => this.goto('')}
-      onAddClick={() => this.goto('addrecord')}
+      onAddClick={() => this.goto('add')}
       onSubmitChangesClick={(id, video, image, title, artist, year, chart, info) => {
         this.saveChanges(id, video, image, title, artist, year, chart, info);}}/>
     );

@@ -2055,7 +2055,36 @@ div {
     border: 1px solid white; }
   .app .discography {
     display: inline-block;
-    margin-left: 125px; }
+    margin-left: 125px;
+    margin-right: 100px; }
+  .app #recordView {
+    margin-left: 125px;
+    margin-right: 100px; }
+  .app #singleView {
+    list-style-type: none;
+    margin-bottom: 10px; }
+  .app #singleView li {
+    margin-bottom: 10px; }
+  .app #addDiv {
+    margin-top: 15px;
+    margin-left: 150px;
+    padding: 20px;
+    border: 1px solid white; }
+  .app #addForm {
+    list-style: none; }
+  .app #addForm li {
+    margin-left: -40px;
+    margin-bottom: 25px; }
+  .app #editDiv {
+    margin-top: 15px;
+    margin-left: 150px;
+    padding: 20px;
+    border: 1px solid white; }
+  .app #editForm {
+    list-style: none; }
+  .app #editForm li {
+    margin-left: -40px;
+    margin-bottom: 25px; }
   .app img {
     border: 1px solid white;
     margin-right: 15px;
@@ -2078,5 +2107,9 @@ div {
     border: 1px solid white;
     width: 100%;
     margin-top: 30px; }
+  .app input {
+    color: black; }
+  .app textarea {
+    color: black; }
 
 /*# sourceMappingURL=main.css.map */

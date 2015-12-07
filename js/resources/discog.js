@@ -1,6 +1,5 @@
 import Backbone from 'backbone';
 import Record from './record';
-// import {APP_URL} from '../parse_data';
 
 export default Backbone.Collection.extend({
 
