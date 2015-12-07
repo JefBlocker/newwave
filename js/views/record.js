@@ -27,14 +27,14 @@ export default React.createClass({
           
         </div>
 
-        <div className="record-view" id={this.props.newWave.id}>
-          <iframe width="420" height="315" src="http://www.youtube.com/embed/{this.props.newWave.video}?html5=1">
-</iframe>
-          // <img src={this.props.newWave.image}/>
-          <p><span className="title">{this.props.newWave.title}</span> by {this.props.newWave.artist}</p>
+  //       <div className="record-view" id={this.props.newWave.id}>
 
-        </div>
-      </div>
+
+          
+  //         <p><span className="title">{this.props.newWave.title}</span> by {this.props.newWave.artist}</p>
+
+  //       </div>
+  //     </div>
     );
 
   }

@@ -2032,19 +2032,26 @@ div {
   color: white;
   font-family: Kabel, sans-serif; }
   .app .nav {
+    max-width: 68em;
+    margin-left: auto;
+    margin-right: auto;
     float: none;
     text-align: left;
     font-size: 48px;
     height: 180px;
     padding: 10px;
-    border: 1px solid white; }
+    border: 1px solid white;
+    margin-bottom: 15px; }
+    .app .nav::after {
+      clear: both;
+      content: "";
+      display: table; }
   .app button {
     padding: 15px;
     font-size: 24px;
     background: none;
-    float: right;
-    margin-right: 30px;
-    margin-bottom: 100px;
+    margin-top: 50px;
+    margin-right: 25px;
     border: 1px solid white; }
   .app .discography {
     display: inline-block;
@@ -2060,5 +2067,16 @@ div {
     max-width: 190px;
     max-height: 160px;
     border: none; }
+  .app #logoTag {
+    width: 700px; }
+  .app #navBtns {
+    float: right; }
+  .app #recordSleeves {
+    margin-top: 30px; }
+  .app #footer {
+    text-align: center;
+    border: 1px solid white;
+    width: 100%;
+    margin-top: 30px; }
 
 /*# sourceMappingURL=main.css.map */

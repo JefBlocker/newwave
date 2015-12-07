@@ -11,24 +11,23 @@ div {
   color: white;
   font-family: Kabel, sans-serif;
 
-
-
   .nav {
+    @include outer-container;
     float: none;
     text-align: left;
     font-size: 48px;
     height: 180px;
     padding: 10px;
     border: 1px solid white;
+    margin-bottom: 15px;
   }
 
     button {
       padding: 15px;
       font-size: 24px;
       background: none;
-      float: right;
-      margin-right: 30px;
-      margin-bottom: 100px;
+      margin-top: 50px;
+      margin-right: 25px;
       border: 1px solid white;;
     }
 
@@ -53,7 +52,25 @@ div {
       max-height: 160px;
       border: none;
     }
+
+    #logoTag {
+      width: 700px;
+    }
+
+    #navBtns {
+      float: right;
+    }
+
+    #recordSleeves {
+      margin-top: 30px;
+    }
   
+    #footer {
+      text-align: center;
+      border: 1px solid white;
+      width: 100%;
+      margin-top: 30px;
+    }
 
    //   img {
   //     padding: 5px;

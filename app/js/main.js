@@ -493,32 +493,49 @@ exports["default"] = _react2["default"].createClass({
       null,
       _react2["default"].createElement(
         "div",
-        { id: this.props.newWave.id, className: "nav" },
-        _react2["default"].createElement("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5", id: "mtvLogo" }),
+        { className: "nav" },
         _react2["default"].createElement(
-          "p",
-          null,
-          "Classic Music Videos"
+          "div",
+          { id: "logoTag" },
+          _react2["default"].createElement("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTONZwJK1jtcjjMLc7J7BygFxAvo2kYeksq_DTaUSq6a1bVQKwGMWMFLGw5", id: "mtvLogo" }),
+          _react2["default"].createElement(
+            "p",
+            null,
+            "Classic Music Videos"
+          )
         ),
         _react2["default"].createElement(
-          "button",
-          { onClick: this.addRecordView },
-          _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
-          "Add"
-        ),
-        _react2["default"].createElement(
-          "button",
-          { onClick: function () {
-              return _this2.goHomeView();
-            } },
-          _react2["default"].createElement("i", { className: "fa fa-home" }),
-          "Home"
+          "div",
+          { id: "navBtns" },
+          _react2["default"].createElement(
+            "button",
+            { onClick: function () {
+                return _this2.goHomeView();
+              } },
+            _react2["default"].createElement("i", { className: "fa fa-home" }),
+            "Home"
+          ),
+          _react2["default"].createElement(
+            "button",
+            { onClick: this.addRecordView },
+            _react2["default"].createElement("i", { className: "fa fa-plus-circle" }),
+            "Add"
+          )
         )
       ),
       _react2["default"].createElement(
         "div",
-        { className: "discography" },
+        { id: "recordSleeves", className: "discography" },
         this.props.newWave.map(this.processData)
+      ),
+      _react2["default"].createElement(
+        "div",
+        { id: "footer" },
+        _react2["default"].createElement(
+          "h5",
+          null,
+          "© 2015 Viacom International Inc. All Rights Reserved. MTV and all related titles and logos are trademarks of Viacom International Inc. "
+        )
       )
     );
   }
@@ -833,12 +850,11 @@ exports["default"] = _react2["default"].createClass({
           "Home"
         )
       ),
+      "//       ",
       _react2["default"].createElement(
         "div",
         { className: "record-view", id: this.props.newWave.id },
-        _react2["default"].createElement("iframe", { width: "420", height: "315", src: "http://www.youtube.com/embed/{this.props.newWave.video}?html5=1" }),
-        "// ",
-        _react2["default"].createElement("img", { src: this.props.newWave.image }),
+        "//         ",
         _react2["default"].createElement(
           "p",
           null,
@@ -849,8 +865,10 @@ exports["default"] = _react2["default"].createClass({
           ),
           " by ",
           this.props.newWave.artist
-        )
-      )
+        ),
+        "//       "
+      ),
+      "//     "
     );
   }
 
